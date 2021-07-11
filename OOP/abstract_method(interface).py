@@ -12,20 +12,21 @@ class Dog(metaclass=abc.ABCMeta):
 
     @food.setter
     def food(self, food):
+        # print('[setter]')
         self.__food = food
 
     @property
     @abc.abstractmethod
     def skill(self):    # 希望subclass都有這個skill property
-        pass
+        return NotImplemented
 
     @abc.abstractmethod
     def eat_food(self):
-        pass
+        return NotImplemented
 
     @classmethod
     @abc.abstractmethod
-    def pee(cls):          
+    def pee(cls):
         pass
 
 
@@ -39,7 +40,8 @@ class Shiba(Dog):
         return self.__skill
 
     def eat_food(self):
-        print(f"I'm eating {self.food}") # 因為已設定了property，所以這裡是使用getter取得__food的
+        # 因為已設定了property，所以這裡是使用getter取得__food的
+        print(f"I'm eating {self.food}")
 
     @classmethod
     def pee(cls):
@@ -59,4 +61,4 @@ Bibo.eat_food()  # I'm eating fish
 # test for abstract property method
 print(f'I am good at {Bibo.skill}.')  # I am good at playing ball
 
-Shiba.pee() # Shiba is peeing........
+Shiba.pee()  # Shiba is peeing........

@@ -1,4 +1,5 @@
-#class Decorator，將function封裝到class
+# class Decorator，將function封裝到class
+
 class Dog:
     def __init__(self, func):  # 注意：被裝飾的function會以參數func傳入
         self.age = 10
@@ -24,12 +25,12 @@ def dog_can_poo():
 
 
 if __name__ == "__main__":
-   
+
     dog_1 = dog_can_pee
     print(dog_1.age)
     # > 10
     print(type(dog_1))
-    # > <class '__main__.Dog'>  好像實例化了????
+    # > <class '__main__.Dog'>
     dog_1.bark()
     # > Bark !!!
     dog_1.talent()
@@ -43,9 +44,9 @@ if __name__ == "__main__":
     dog_3.talent()
     # > I can poo like a super pooping machine!
 
-    # 如果不小心傳入引數給實例，talent()會壞掉，可是self.talent卻有值了lol...怪異
+    # Q: 如果不小心傳入引數給實例，talent()會壞掉，可是self.talent卻有值了lol...怪異
+    # A: 一點都不怪，只是123被當成parameter 'func'而已
     dog_4 = Dog(123)
-    print(type(dog_4)) # > <class '__main__.Dog'>
-    print(dog_4.talent) # > 123
-    print(dog_4.talent()) # TypeError: 'int' object is not callable
-    
+    print(type(dog_4))  # > <class '__main__.Dog'>
+    print(dog_4.talent)  # > 123
+    print(dog_4.talent())  # TypeError: 'int' object is not callable
