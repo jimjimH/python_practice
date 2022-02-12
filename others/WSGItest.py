@@ -3,11 +3,13 @@
 # 利用wsgiref 作為wsgi server
 from wsgiref.simple_server import make_server
 
+
 def simple_app(environ, start_response):
     status = '200 ok'
-    response_headers = [('Content-type', 'text/plain')] #設定http頭
+    response_headers = [('Content-type', 'text/plain')]  # 設定http頭
     start_response(status, response_headers)
     return [u"test wsgi app".encode('utf-8')]
+
 
 class AppClass(object):
     def __call__(self, environ, start_response):
@@ -15,6 +17,7 @@ class AppClass(object):
         response_headers = [('Content-type', 'text/plain')]
         start_response(status, response_headers)
         return [u"class AppClass".encode('utf-8')]
+
 
 # wsgi app只要是一個callable物件即可，不一定要是函式
 # 一個實現了__call__方法示例也ok的
@@ -43,11 +46,11 @@ class Dispatcher(object):
         path = environ.get('PATH_INFO', '/')
         app = self._match(path)
         if app:
-        app = globals()[app]
-        return app(environ, start_response)
+            app = globals()[app]
+            return app(environ, start_response)
         else:
-        start_response("404 NOT FOUND", [('Content-type', 'text/plain')])
-        return ["page dose not exists"]
+            start_response("404 NOT FOUND", [('Content-type', 'text/plain')])
+            return ["page dose not exists"]
 
     def AA_app(environ, start_response):
         start_response("200 OK", [('Content-type', 'text/html')])
@@ -64,7 +67,7 @@ httpd.serve_forever()
 '''
 測試結果：
 server端：
-root@u163:~/cp163/python# python wsgi_app.py 
+root@u163:~/cp163/python# python wsgi_app.py
 192.168.2.162 - - [04/Nov/2015 18:44:06] "GET /AA HTTP/1.1" 200 7
 192.168.2.162 - - [04/Nov/2015 18:44:22] "GET /BB HTTP/1.1" 200 7
 client端：

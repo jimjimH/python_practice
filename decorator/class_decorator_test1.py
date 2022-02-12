@@ -1,5 +1,6 @@
-# class Decorator，將function封裝到class
+# Q: 為什麼function被class decorator修飾後，會像是被實例化一樣觸發__init__，就像物件一樣擁有class method and attribute?
 
+# class Decorator，將function封裝到class
 class Dog:
     def __init__(self, func):  # 注意：被裝飾的function會以參數func傳入
         self.age = 10
@@ -9,6 +10,8 @@ class Dog:
         print("Bark !!!")
 
 
+# 使用class decorator 會實例化一個Dog instance
+# 這是一個非常重要、靈活而優雅的技巧，將 function dog_can_pee 「封裝」到 class Dog 的一種寫法。
 @Dog
 def dog_can_pee():
     print("I can pee very hard......")
